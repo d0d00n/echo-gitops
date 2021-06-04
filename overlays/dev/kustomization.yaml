@@ -4,8 +4,8 @@ kind: Kustomization
 namespace: 3scale-dev
 
 bases:
-- ../../base
+  - ../../base
   
 patchesStrategicMerge:
-- configmap.yaml
-- deployment.yaml
+  - configmap.yaml
+  - deployment.yaml
