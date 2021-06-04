@@ -3,6 +3,7 @@ apiVersion: apps/v1
 metadata:
   name: echoapi
 spec:
+  replicas: 0
   template:
     spec:
       containers:
