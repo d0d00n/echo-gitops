@@ -1,0 +1,20 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: echoapi
+  labels:
+    app: echoapi
+    app.kubernetes.io/component: echoapi
+    app.kubernetes.io/instance: echoapi
+    app.kubernetes.io/part-of: echoapi
+spec:
+  ports:
+    - name: 9292-tcp
+      protocol: TCP
+      port: 9292
+      targetPort: 9292
+  selector:
+    app: echoapi
+    deploymentconfig: echoapi
+  type: ClusterIP
+  sessionAffinity: None
