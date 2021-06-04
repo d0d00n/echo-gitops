@@ -1,0 +1,10 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: echoapi
+spec:
+  template:
+    spec:
+      containers:
+        - name: echoapi
+          image: quay.io/3scale/echoapi:latest

@@ -21,6 +21,17 @@ spec:
       containers:
         - name: echoapi
           image: quay.io/3scale/echoapi:stable
+          env:
+            - name: ENVIRONMENT
+              valueFrom:
+                configMapKeyRef:
+                  name: echo-config
+                  key: env
+            - name: database.host
+              valueFrom:
+                configMapKeyRef:
+                  name: echo-config
+                  key: database_url
           ports:
             - containerPort: 9292
               protocol: TCP

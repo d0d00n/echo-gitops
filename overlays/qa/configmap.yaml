@@ -1,0 +1,7 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: echo-config
+data:
+  env: 'qa'
+  database_url: 'postgresql://testdb-qa.yutytuikyubvcf.ca-central-1.rds.amazonaws.com:5432/db'
