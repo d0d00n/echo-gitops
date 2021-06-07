@@ -4,12 +4,12 @@ metadata:
   name: echoapi
 spec:
   template:
-    metadata:
-      annotations:
-        vault.hashicorp.com/agent-inject: "true"
-        vault.hashicorp.com/role: "3scale-app"
-        vault.hashicorp.com//agent-inject-secret-database-config.txt: "internal/data/3scale/database/config"
     spec:
+      metadata:
+        annotations:
+          vault.hashicorp.com/agent-inject: "true"
+          vault.hashicorp.com/role: "3scale-app"
+          vault.hashicorp.com//agent-inject-secret-database-config.txt: "internal/data/3scale/database/config"    
       containers:
         - name: echoapi
           image: quay.io/3scale/echoapi:production
