@@ -1,0 +1,68 @@
+kind: DeploymentConfig
+apiVersion: apps.openshift.io/v1
+metadata:
+  name: echoapi
+  labels:
+    app: echoapi
+    app.kubernetes.io/component: echoapi
+    app.kubernetes.io/instance: echoapi
+    app.kubernetes.io/part-of: echoapi
+    app.kubernetes.io/name: echoapi
+spec:
+  strategy:
+    type: Rolling
+    rollingParams:
+      updatePeriodSeconds: 1
+      intervalSeconds: 1
+      timeoutSeconds: 1800
+      maxUnavailable: 25%
+      maxSurge: 25%
+    resources: {}
+    activeDeadlineSeconds: 21600
+  triggers:
+    - type: ConfigChange
+    - type: ImageChange
+      imageChangeParams:
+        automatic: true
+        containerNames:
+          - echoapi
+        from:
+          kind: ImageStreamTag
+          name: 'echoapi:stable'
+  replicas: 1
+  revisionHistoryLimit: 10
+  test: false
+  selector:
+    deploymentConfig: echoapi
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: echoapi
+        deploymentConfig: echoapi
+    spec:
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30
+      securityContext: {}
+      containers:
+        - resources: {}
+          terminationMessagePath: /dev/termination-log
+          name: echoapi
+          env:
+            - name: ENVIRONMENT
+              valueFrom:
+                configMapKeyRef:
+                  name: echo-config
+                  key: env
+            - name: database.host
+              valueFrom:
+                configMapKeyRef:
+                  name: echo-config
+                  key: database_url
+          ports:
+            - containerPort: 9292
+              protocol: TCP
+          imagePullPolicy: Always
+          terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
